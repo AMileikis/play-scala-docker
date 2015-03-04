@@ -1,11 +1,5 @@
 FROM ubuntu:14.04
 
-#Set working directory
-WORKDIR /play_docker_project
-
-#Copy the files
-ADD my-app /usr/src/
-
 RUN DEBIAN_FRONTEND=noninteractive apt-get -y install software-properties-common
 
 RUN \
@@ -22,14 +16,26 @@ RUN \
   apt-get update && \
   sudo apt-get install -y sbt
 
+RUN apt-get install -y wget git
+
 ENV JAVA_HOME /usr/lib/jvm/java-8-oracle
+
+RUN apt-get install unzip
 
 EXPOSE 9217
 
-CMD \
+RUN \
   cd ../usr/src && \
-  sbt "~run 9217"   
+  git clone https://github.com/AMileikis/play-scala-docker.git && \
+  cd play-scala-docker/my-app && \
+  sbt dist
 
+RUN mkdir -p /usr/src/play-scala-docker/app
 
+RUN cp /usr/src/play-scala-docker/my-app/target/universal/my-app-1.0.0-SNAPSHOT.zip /usr/src/play-scala-docker/app
 
+RUN cd /usr/src/play-scala-docker/app && \
+    unzip my-app-1.0.0-SNAPSHOT.zip 
+
+CMD /usr/src/play-scala-docker/app/my-app-1.0.0-SNAPSHOT/bin/my-app -Dhttp.port=9217
 

@@ -1,3 +1,0 @@
-[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
-[0m[[0mdebug[0m] [0m	(/home/aurimas/play_docker_project/my-app/conf/application.conf,/home/aurimas/play_docker_project/my-app/target/scala-2.10/classes/application.conf)[0m
-[0m[[0mdebug[0m] [0m	(/home/aurimas/play_docker_project/my-app/conf/app.routes,/home/aurimas/play_docker_project/my-app/target/scala-2.10/classes/app.routes)[0m
